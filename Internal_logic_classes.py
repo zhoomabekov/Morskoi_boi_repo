@@ -108,15 +108,20 @@ class Board:
         return list(set(contoured_ships_dots))
 
     def show_board(self):  # выводит доску в консоль в зависимости от параметра hid.
-        ships_gui = self.POSSIBLE_CELLS.copy()
+        ships_gui = self.start_cells_conditions.copy()
+
         existing_ships_dots = []
         for i in range(len(self.ships)):
             existing_ships_dots += self.ships[i]
 
+        for i in existing_ships_dots:
+            ships_gui[i[0]][i[1]] = self.__s
+
         if not hid:
-            return self.ships
+            return self.gui_print(ships_gui)
 
     def out(self, dot):  # для точки (объекта класса Dot) возвращает True, если точка выходит за пределы поля
+        print(111)
         if dot in self.POSSIBLE_CELLS:
             return False
         else:
@@ -125,30 +130,40 @@ class Board:
     def shot(self):  # делает выстрел по доске (если есть попытка выстрелить за \
         # пределы и в использованную точку, нужно выбрасывать исключения
         while True:  # Loop для получения правильного ввода от Игрока
+
             try:
                 player_shot = int(input("В какую ячейку будем стрелять?"))
                 row = player_shot // 10 - 1
                 col = player_shot % 10 - 1
-
-                if self.out((row, col)):
-                    raise BoardOutError(player_shot)
-                else:
-                    shot = Dot(row, col)
-
-                    if shot not in self.player_shots_left:
-                        err = NonEmptyError(player_shot)
-                        print(err)
-                    else:
-                        if self.ships[row][col] == 'o':
-                            self.cells_conditions[row][col] = 'T'
-                            self.player_shots_left.remove(Dot(row, col))
-                            print(self.cells_conditions)
-                        else:
-                            self.cells_conditions[row][col] = 'X'
-                            self.player_shots_left.remove(Dot(row, col))
-                            print(self.cells_conditions)
-                        print('Ход компьютера:')
-                        break
-
             except Exception:
                 print('Необходимо ввести двузначное число!')
+                break
+
+            if self.out((row, col)):
+                raise BoardOutError(player_shot)
+            else:
+                shot = Dot(row, col)
+
+                if shot not in self.player_shots_left:
+                    err = NonEmptyError(player_shot)
+                    print(err)
+                else:
+                    existing_ships_dots = []
+                    for i in range(len(self.ships)):
+                        existing_ships_dots += self.ships[i]
+                    if (row, col) in existing_ships_dots:
+                        self.cells_conditions[row][col] = 'X'
+                        self.player_shots_left.remove(Dot(row, col))
+                        print(self.cells_conditions)
+                    else:
+                        self.cells_conditions[row][col] = 'T'
+                        self.player_shots_left.remove(Dot(row, col))
+                        print(self.cells_conditions)
+                    print('Ход компьютера:')
+                    break
+
+    def gui_print(self, L):
+        print(*[" ", *[i for i in range(1, 7)]], sep=' | ')
+        for i in range(6):
+            print(i + 1, *L[i], sep=' | ')
+        return

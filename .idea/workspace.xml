@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e0debf15-e2c5-40a1-9404-040f3c27c1d0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Internal_logic_classes.py" beforeDir="false" afterPath="$PROJECT_DIR$/Internal_logic_classes.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Morskoi_Boi_Jupyter.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Morskoi_Boi_Jupyter.ipynb" afterDir="false" />
     </list>
