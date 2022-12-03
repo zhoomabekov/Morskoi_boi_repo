@@ -3,10 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="e0debf15-e2c5-40a1-9404-040f3c27c1d0" name="Changes" comment="Board finished">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.ipynb_checkpoints/Morskoi_Boi_Jupyter-checkpoint.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/Morskoi_Boi_Jupyter-checkpoint.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/External_logic_classes.py" beforeDir="false" afterPath="$PROJECT_DIR$/External_logic_classes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Internal_logic_classes.py" beforeDir="false" afterPath="$PROJECT_DIR$/Internal_logic_classes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Morskoi_Boi_Jupyter.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Morskoi_Boi_Jupyter.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Morskoi_Boi_MAIN.py" beforeDir="false" afterPath="$PROJECT_DIR$/Morskoi_Boi_MAIN.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +36,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Python.Internal_logic_classes">
+  <component name="RunManager" selected="Python.Morskoi_Boi_MAIN">
     <configuration name="Internal_logic_classes" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Morskoi_boi_repo" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -83,8 +81,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.Internal_logic_classes" />
         <item itemvalue="Python.Morskoi_Boi_MAIN" />
+        <item itemvalue="Python.Internal_logic_classes" />
       </list>
     </recent_temporary>
   </component>
@@ -127,8 +125,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Morskoi_Boi_MAIN.py</url>
-          <line>13</line>
-          <option name="timeStamp" value="2" />
+          <line>6</line>
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

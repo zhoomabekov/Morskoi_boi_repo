@@ -1,4 +1,4 @@
-import Internal_logic_classes
+from Internal_logic_classes import BoardOutError, NonEmptyError, ShipLocationError, Dot, Ship, Board
 
 from abc import ABC
 from abc import abstractmethod
@@ -36,7 +36,7 @@ class User(Player):
 
 class AI(Player):
     def ask(self):
-        shot = opponent_board.player_shots_left[randint(0, len(opponent_board.player_shots_left) - 1)]
+        shot = self.opponent_board.player_shots_left[randint(0, len(self.opponent_board.player_shots_left) - 1)]
         return shot.show
 
 
