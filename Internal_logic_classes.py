@@ -75,7 +75,7 @@ class Board:
         player_shots_left.append(Dot(*i))
     #     print(len(player_shots_left))
 
-    start_cells_conditions = [['o' for i in range(6)] for i in range(6)]
+    start_cells_conditions = [['o' for i in range(6)] for j in range(6)]
 
     __s = u'\u220E'  # код квадрата в системе unicode
 
@@ -91,6 +91,9 @@ class Board:
                 raise ShipLocationError(ship.length, ship.front, ship.direction)
         self.ships.append(ship.dots())
         print(f'ships = {self.ships}')
+
+        for i in ship.dots():
+            self.player_shots_left.remove(i)
 
     def contoured_ships(self):  # точки всех кораблей + их контуров
 
@@ -117,7 +120,7 @@ class Board:
         for i in existing_ships_dots:
             ships_gui[i[0]][i[1]] = self.__s
 
-        if not hid:
+        if not self.hid:
             return self.gui_print(ships_gui)
 
     def out(self, dot):  # для точки (объекта класса Dot) возвращает True, если точка выходит за пределы поля
@@ -127,25 +130,25 @@ class Board:
         else:
             return True
 
-    def shot(self):  # делает выстрел по доске (если есть попытка выстрелить за \
+    def shot(self, row, col):  # делает выстрел по доске (если есть попытка выстрелить за \
         # пределы и в использованную точку, нужно выбрасывать исключения
         while True:  # Loop для получения правильного ввода от Игрока
 
-            try:
-                player_shot = int(input("В какую ячейку будем стрелять?"))
-                row = player_shot // 10 - 1
-                col = player_shot % 10 - 1
-            except Exception:
-                print('Необходимо ввести двузначное число!')
-                break
+            #             try:
+            #                 player_shot = int(input("В какую ячейку будем стрелять?"))
+            #                 row = player_shot // 10 - 1
+            #                 col = player_shot % 10 - 1
+            #             except Exception:
+            #                 print('Необходимо ввести двузначное число!')
+            #                 break
 
             if self.out((row, col)):
-                raise BoardOutError(player_shot)
+                raise BoardOutError((row + 1, col + 1))
             else:
                 shot = Dot(row, col)
 
                 if shot not in self.player_shots_left:
-                    err = NonEmptyError(player_shot)
+                    err = NonEmptyError((row + 1, col + 1))
                     print(err)
                 else:
                     existing_ships_dots = []
