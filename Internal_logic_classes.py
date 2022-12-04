@@ -3,7 +3,8 @@ class BoardOutError(Exception):
         self.value = value
 
     def __str__(self):
-        return f"{self.value} лежит за пределами игрового поля. Введите двузначное число, каждая цифра которого от 1 до 6, включительно."
+        return f"{self.value} лежит за пределами игрового поля. Введите двузначное число, \
+        каждая цифра которого от 1 до 6, включительно."
 
 
 class NonEmptyError(Exception):
@@ -26,7 +27,8 @@ class ShipLocationError(Exception):
             1: 'Вправо',
             2: 'Вниз'
         }
-        return f"Указанные параметры - длина ({self.length}), положение носа корабля {self.front} и направление ({direction_word[self.direction]}) не позволяют корректно разместить корабль на игровом поле."
+        return f"Указанные параметры - длина ({self.length}), положение носа корабля {self.front} \
+        и направление ({direction_word[self.direction]}) не позволяют корректно разместить корабль на игровом поле."
 
 
 class Dot:
@@ -35,11 +37,11 @@ class Dot:
         self.col = col
 
     def __eq__(self, other):
-        return self.row == other.row and self.col == other.col
+        return self.row == other[0] and self.col == other[1]
 
     @property
     def show(self):
-        return (self.row, self.col)
+        return self.row, self.col
 
 
 class Ship:
@@ -57,7 +59,7 @@ class Ship:
         }
 
         for i in range(self.length):
-            cell = (self.front[0] + direction_vector[self.direction][0] * (i), \
+            cell = (self.front[0] + direction_vector[self.direction][0] * (i),
                     self.front[1] + direction_vector[self.direction][1] * (i))
             ship_cells.append(cell)
         return ship_cells
@@ -68,32 +70,34 @@ class Board:
     for i in range(6):
         for j in range(6):
             POSSIBLE_CELLS.append((i, j))
-    #     print(POSSIBLE_CELLS)
 
-    player_shots_left = []
-    for i in POSSIBLE_CELLS:
-        player_shots_left.append(Dot(*i))
-    #     print(len(player_shots_left))
 
-    start_cells_conditions = [['o' for i in range(6)] for j in range(6)]
+    gui_start_cells_conditions = [['o' for i in range(6)] for j in range(6)]
 
     __s = u'\u220E'  # код квадрата в системе unicode
 
-    def __init__(self, hid, cells_conditions=start_cells_conditions, ships=[], alive_ships=7):
-        self.cells_conditions = cells_conditions  # list
+    def __init__(self, hid, cells_conditions=[], ships=[], alive_ships=7):
+        self.cells_conditions = self.gui_start_cells_conditions  # list
         self.ships = ships  # list with all ships
         self.hid = hid  # bool
         self.alive_ships = alive_ships  # int
+        self.player_shots_left = []
+        for i in self.POSSIBLE_CELLS:
+            self.player_shots_left.append(Dot(*i))
 
     def add_ship(self, ship):  # ставит корабль на доску (если ставить не получается, выбрасываем исключения)
-        for i in range(len(ship.dots())):
-            if ship.dots()[i] in self.contoured_ships():
+        for i in range(ship.length):
+            if ship.dots()[i] in self.contoured_ships() or ship.dots()[i] not in self.POSSIBLE_CELLS:
                 raise ShipLocationError(ship.length, ship.front, ship.direction)
         self.ships.append(ship.dots())
         print(f'ships = {self.ships}')
 
-        for i in ship.dots():
-            self.player_shots_left.remove(i)
+        for i in (self.contoured_ships()):
+            try:
+                self.player_shots_left.remove(i)
+            except Exception:
+                pass
+        return self.ships
 
     def contoured_ships(self):  # точки всех кораблей + их контуров
 
@@ -108,7 +112,9 @@ class Board:
                     tested_dot = (existing_ships_dots[dot][0] + i, existing_ships_dots[dot][1] + j)
                     if tested_dot in self.POSSIBLE_CELLS:
                         contoured_ships_dots.append(tested_dot)
-        return list(set(contoured_ships_dots))
+        contoured_ships_dots = list(set(contoured_ships_dots))
+
+        return contoured_ships_dots
 
     def show_board(self):  # выводит доску в консоль в зависимости от параметра hid.
         ships_gui = self.start_cells_conditions.copy()
