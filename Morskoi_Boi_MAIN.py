@@ -11,3 +11,5 @@ AI = AI(test_AI, test_user)
 
 g = Game(user, user_board, AI, AI_board)
 g.random_board()
+
+user_board.show_board()
