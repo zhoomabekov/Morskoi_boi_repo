@@ -63,7 +63,8 @@ class Game:
 
                     temp.add_ship(ship)
                     break
-                except Exception:
+                except Exception as e:
+                    print(e)
                     print('exception when 3x user')
                     continue
 
@@ -126,9 +127,9 @@ class Game:
                 continue
             else:
                 if hid == 0:
-                    user_board = temp
+                    self.user_board = temp
                 elif hid == 1:
-                    AI_board = temp
+                    self.AI_board = temp
                 hid += 1
         # while True:
         #     # размещение 3-клеточного корабля

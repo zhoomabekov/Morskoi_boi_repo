@@ -6,8 +6,10 @@ AI_board = Board(hid=True)
 test_user = Board(hid=False)
 test_AI = Board(hid=True)
 
-user = User(test_user, test_AI)
+user = User(user_board, AI_board)
 AI = AI(test_AI, test_user)
 
 g = Game(user, user_board, AI, AI_board)
 g.random_board()
+
+user_board.show_board()

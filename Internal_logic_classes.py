@@ -76,7 +76,7 @@ class Board:
 
     __s = u'\u220E'  # код квадрата в системе unicode
 
-    def __init__(self, hid, cells_conditions=[], ships=[], alive_ships=7):
+    def __init__(self, hid, cells_conditions=None, ships=None, alive_ships=7):
         self.cells_conditions = self.gui_start_cells_conditions  # list
         self.ships = ships  # list with all ships
         self.hid = hid  # bool
@@ -86,6 +86,7 @@ class Board:
             self.player_shots_left.append(Dot(*i))
 
     def add_ship(self, ship):  # ставит корабль на доску (если ставить не получается, выбрасываем исключения)
+
         for i in range(ship.length):
             if ship.dots()[i] in self.contoured_ships() or ship.dots()[i] not in self.POSSIBLE_CELLS:
                 raise ShipLocationError(ship.length, ship.front, ship.direction)
@@ -100,6 +101,10 @@ class Board:
         return self.ships
 
     def contoured_ships(self):  # точки всех кораблей + их контуров
+
+        if self.ships is None:
+            self.ships = []
+            return []
 
         existing_ships_dots = []
         for i in range(len(self.ships)):
@@ -117,7 +122,7 @@ class Board:
         return contoured_ships_dots
 
     def show_board(self):  # выводит доску в консоль в зависимости от параметра hid.
-        ships_gui = self.start_cells_conditions.copy()
+        ships_gui = self.gui_start_cells_conditions.copy()
 
         existing_ships_dots = []
         for i in range(len(self.ships)):
